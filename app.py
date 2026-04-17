@@ -1,8 +1,9 @@
-import os
 import streamlit as st
 import requests
 from datetime import datetime
 import statistics
+from datetime import datetime, timedelta
+import os
 
 # 🔑 Add your GitHub token here
 TOKEN = os.getenv("GITHUB_TOKEN")
@@ -88,7 +89,7 @@ def evaluate_repo(repo):
             reg = 1
     else:
         reg = 0
-
+    
     # 🔹 Progress (2)
     progress = 2 if total_commits > 10 else 1
 
@@ -97,6 +98,8 @@ def evaluate_repo(repo):
 
     total = freq + msg_score + reg + progress + hygiene
 
+    if max(dates) - min(dates) < timedelta(days=2):
+        total -= 2  # Penalize if all commits are in a short time frame
     return {
         "commits": total_commits,
         "frequency": freq,
@@ -134,8 +137,7 @@ if st.button("Evaluate"):
     else:
         st.warning("Please enter a repo name")
 
-if max(dates) - min(dates) < timedelta(days=2):
-    total -= 2
+
 
 def has_readme(repo):
     url = f"https://api.github.com/repos/{repo}/readme"
