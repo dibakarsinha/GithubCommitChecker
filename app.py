@@ -1,10 +1,11 @@
+import os
 import streamlit as st
 import requests
 from datetime import datetime
 import statistics
 
 # 🔑 Add your GitHub token here
-TOKEN = ""
+TOKEN = os.getenv("GITHUB_TOKEN")
 
 HEADERS = {
     "Authorization": f"Bearer {TOKEN}",
