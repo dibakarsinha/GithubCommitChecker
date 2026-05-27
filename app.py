@@ -135,7 +135,7 @@ if st.button("Evaluate"):
             st.write(f"**Hygiene:** {result['hygiene']} / 1")
 
             st.markdown("---")
-            st.subheader(f"🎯 Final Marks: {result['total']} / 15")
+            st.subheader(f"🎯 Final Marks: {result['total']} / 20")
     else:
         st.warning("Please enter a repo name")
 
