@@ -59,30 +59,32 @@ def evaluate_repo(repo):
 
     total_commits = len(commits)
 
-    # 🔹 Frequency (5)
+    # 🔹 Frequency (7)
     if total_commits >= 20:
-        freq = 5
+        freq = 7
     elif total_commits >= 10:
+        freq = 5
+    elif total_commits >= 5:
         freq = 3
     else:
         freq = 1
 
-    # 🔹 Message Quality (4)
+    # 🔹 Message Quality (5)
     ratio = meaningful_msgs / total_commits
     if ratio > 0.8:
-        msg_score = 4
+        msg_score = 5
     elif ratio > 0.5:
         msg_score = 3
     else:
         msg_score = 1
 
-    # 🔹 Regularity (3)
+    # 🔹 Regularity (4)
     if len(dates) > 1:
         gaps = [(dates[i] - dates[i-1]).days for i in range(1, len(dates))]
         avg_gap = statistics.mean(gaps)
 
         if avg_gap <= 2:
-            reg = 3
+            reg = 4
         elif avg_gap <= 5:
             reg = 2
         else:
@@ -90,7 +92,7 @@ def evaluate_repo(repo):
     else:
         reg = 0
     
-    # 🔹 Progress (2)
+    # 🔹 Progress (3)
     progress = 2 if total_commits > 10 else 1
 
     # 🔹 Hygiene (1)
@@ -126,10 +128,10 @@ if st.button("Evaluate"):
             st.success(f"✅ Evaluation Complete for {repo}")
 
             st.write(f"**Total Commits:** {result['commits']}")
-            st.write(f"**Frequency:** {result['frequency']} / 5")
-            st.write(f"**Message Quality:** {result['message_quality']} / 4")
-            st.write(f"**Regularity:** {result['regularity']} / 3")
-            st.write(f"**Progress:** {result['progress']} / 2")
+            st.write(f"**Frequency:** {result['frequency']} / 7")
+            st.write(f"**Message Quality:** {result['message_quality']} / 5")
+            st.write(f"**Regularity:** {result['regularity']} / 4")
+            st.write(f"**Progress:** {result['progress']} / 3")
             st.write(f"**Hygiene:** {result['hygiene']} / 1")
 
             st.markdown("---")
